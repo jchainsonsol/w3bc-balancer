@@ -1,81 +1,23 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>W3BC Balancer</title>
-<style>
-:root{color-scheme:dark;--bg:#080b10;--panel:#10151d;--line:#222b38;--text:#f5f7fa;--muted:#8995a5;--green:#38e88f;--red:#ff5c68;--cyan:#42d9ff;--pink:#ff4fc8;--amber:#ffd86b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif}.app{max-width:720px;margin:auto;padding:22px 16px 40px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.brand{font-weight:900;letter-spacing:.08em}.brand span{color:var(--cyan)}.mode{font-size:11px;padding:7px 10px;border:1px solid #644b14;border-radius:999px;color:var(--amber);font-weight:800}.hero{padding:20px 0 22px}.label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.value{font-size:40px;font-weight:850;letter-spacing:-.04em;margin-top:4px}.positive{color:var(--green)}.negative{color:var(--red)}.muted{color:var(--muted)}.sub{display:flex;gap:18px;flex-wrap:wrap;margin-top:7px;font-size:13px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}.metric,.asset,.notice{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}.metric strong{display:block;font-size:18px;margin-top:5px}.notice{margin-bottom:14px;font-size:12px;color:var(--muted);line-height:1.5}.notice strong{color:var(--text)}.section{display:flex;justify-content:space-between;align-items:center;margin:20px 0 10px}.section h2{font-size:14px;margin:0;letter-spacing:.05em}.add{background:none;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 11px;font-weight:800}.assets{display:grid;gap:10px}.asset-head{display:flex;justify-content:space-between;align-items:start;gap:12px}.symbol{font-weight:900;font-size:17px}.status{width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block;margin-right:7px;box-shadow:0 0 10px var(--green)}.price{color:var(--muted);font-size:12px;margin-top:3px}.pnl{text-align:right;font-weight:850}.alpha{font-size:11px;color:var(--muted);margin-top:3px}.bar{height:7px;background:#222a35;border-radius:99px;overflow:hidden;margin:14px 0 8px}.fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--pink));border-radius:99px}.row{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.btn{border:1px solid var(--line);background:#151c26;color:var(--text);padding:11px;border-radius:11px;font-weight:800}.btn.pause{color:var(--amber)}.kill{width:100%;margin-top:22px;padding:14px;border-radius:13px;background:transparent;border:1px solid #5a252b;color:#ff7881;font-weight:900}.footer{text-align:center;color:#596575;font-size:10px;margin-top:18px}.wallet{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;word-break:break-all}.loading{animation:pulse 1.3s infinite}@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}@media(max-width:370px){.value{font-size:34px}.grid{grid-template-columns:1fr}.row{flex-direction:column}}
-</style>
-</head>
-<body><main class="app">
-<div class="top"><div class="brand">W3BC <span>BALANCER</span></div><div class="mode">● LIVE PILOT · READ ONLY</div></div>
-<section class="hero"><div class="label">Live Portfolio Value</div><div class="value loading" id="portfolio">Loading…</div><div class="sub"><span id="pnl" class="muted">Establishing pilot baseline…</span><span id="updated" class="muted"></span></div></section>
-<div class="notice"><strong>Pilot wallet</strong><div class="wallet">7mVEbMXAzmK8Gwe8vkHDEn6YfxPEPJMF269EnFnQb8Su</div><div style="margin-top:6px">This page can only read balances and quotes. It cannot move funds or sign transactions.</div></div>
-<div class="grid"><div class="metric"><div class="label">SOL Balance</div><strong id="solBalance">—</strong></div><div class="metric"><div class="label">USDC Balance</div><strong id="usdcBalance">—</strong></div><div class="metric"><div class="label">SOL Quote</div><strong id="solPrice">—</strong></div><div class="metric"><div class="label">Trades</div><strong>0</strong></div></div>
-<div class="section"><h2>LIVE STRATEGY</h2><button class="add" id="refresh">REFRESH</button></div>
-<div class="assets"><article class="asset"><div class="asset-head"><div><div class="symbol"><span class="status"></span>SOL / USDC</div><div class="price" id="priceLine">Live quote pending</div></div><div class="pnl" id="strategyPnl">$0.00<div class="alpha">vs hold: baseline starting</div></div></div><div class="bar"><div class="fill" id="allocationFill" style="width:50%"></div></div><div class="row"><span id="assetAllocation">— asset</span><span id="cashAllocation">— USDC</span></div><div class="controls"><button class="btn pause" disabled>APPROVAL MODE NEXT</button><button class="btn" id="details">DETAILS</button></div></article></div>
-<button class="kill" disabled>EXECUTION DISABLED · READ ONLY</button><div class="footer" id="footer">Live wallet data via Solana RPC · SOL/USDC quote via Jupiter</div>
-</main>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>W3BC Balancer</title>
+<style>:root{color-scheme:dark;--bg:#080b10;--panel:#10151d;--line:#222b38;--text:#f5f7fa;--muted:#8995a5;--green:#38e88f;--red:#ff5c68;--cyan:#42d9ff;--pink:#ff4fc8;--amber:#ffd86b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif}.app{max-width:720px;margin:auto;padding:22px 16px 40px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.brand{font-weight:900;letter-spacing:.08em}.brand span{color:var(--cyan)}.mode{font-size:11px;padding:7px 10px;border:1px solid #644b14;border-radius:999px;color:var(--amber);font-weight:800}.hero{padding:20px 0 22px}.label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.value{font-size:40px;font-weight:850;letter-spacing:-.04em;margin-top:4px}.positive{color:var(--green)}.negative{color:var(--red)}.muted{color:var(--muted)}.sub{display:flex;gap:18px;flex-wrap:wrap;margin-top:7px;font-size:13px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}.metric,.asset,.notice{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}.metric strong{display:block;font-size:18px;margin-top:5px}.notice{margin-bottom:14px;font-size:12px;color:var(--muted);line-height:1.5}.notice strong{color:var(--text)}.section{display:flex;justify-content:space-between;align-items:center;margin:20px 0 10px}.section h2{font-size:14px;margin:0;letter-spacing:.05em}.add{background:none;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 11px;font-weight:800}.asset-head{display:flex;justify-content:space-between;align-items:start;gap:12px}.symbol{font-weight:900;font-size:17px}.status{width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block;margin-right:7px;box-shadow:0 0 10px var(--green)}.price{color:var(--muted);font-size:12px;margin-top:3px}.pnl{text-align:right;font-weight:850}.alpha{font-size:11px;color:var(--muted);margin-top:3px}.bar{height:7px;background:#222a35;border-radius:99px;overflow:hidden;margin:14px 0 8px}.fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--pink));border-radius:99px}.row{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.btn{border:1px solid var(--line);background:#151c26;color:var(--text);padding:11px;border-radius:11px;font-weight:800}.btn.pause{color:var(--amber)}.kill{width:100%;margin-top:22px;padding:14px;border-radius:13px;background:transparent;border:1px solid #5a252b;color:#ff7881;font-weight:900}.footer{text-align:center;color:#596575;font-size:10px;margin-top:18px}.wallet{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;word-break:break-all}.loading{animation:pulse 1.3s infinite}@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}@media(max-width:370px){.value{font-size:34px}.grid{grid-template-columns:1fr}.row{flex-direction:column}}</style></head>
+<body><main class="app"><div class="top"><div class="brand">W3BC <span>BALANCER</span></div><div class="mode">● LIVE PILOT · READ ONLY</div></div><section class="hero"><div class="label">Live Portfolio Value</div><div class="value loading" id="portfolio">Loading…</div><div class="sub"><span id="pnl" class="muted">Establishing pilot baseline…</span><span id="updated" class="muted"></span></div></section><div class="notice"><strong>Pilot wallet</strong><div class="wallet">7mVEbMXAzmK8Gwe8vkHDEn6YfxPEPJMF269EnFnQb8Su</div><div style="margin-top:6px">Read-only wallet monitoring. This page cannot move funds or sign transactions.</div></div><div class="grid"><div class="metric"><div class="label">SOL Balance</div><strong id="solBalance">—</strong></div><div class="metric"><div class="label">USDC Balance</div><strong id="usdcBalance">—</strong></div><div class="metric"><div class="label">SOL Price</div><strong id="solPrice">—</strong></div><div class="metric"><div class="label">Trades</div><strong>0</strong></div></div><div class="section"><h2>LIVE STRATEGY</h2><button class="add" id="refresh">REFRESH</button></div><article class="asset"><div class="asset-head"><div><div class="symbol"><span class="status"></span>SOL / USDC</div><div class="price" id="priceLine">Live price pending</div></div><div class="pnl" id="strategyPnl">$0.00<div class="alpha">baseline starting</div></div></div><div class="bar"><div class="fill" id="allocationFill" style="width:50%"></div></div><div class="row"><span id="assetAllocation">— asset</span><span id="cashAllocation">— USDC</span></div><div class="controls"><button class="btn pause" disabled>APPROVAL MODE NEXT</button><button class="btn" id="details">DETAILS</button></div></article><button class="kill" disabled>EXECUTION DISABLED · READ ONLY</button><div class="footer" id="footer">Connecting…</div></main>
 <script>
-const WALLET='7mVEbMXAzmK8Gwe8vkHDEn6YfxPEPJMF269EnFnQb8Su';
-const RPC='https://api.mainnet-beta.solana.com';
-const USDC='EPjFWdd5AufqSSqeM2qHGYwNpwUeAmGi1V6JX8qPqk2d';
-const WSOL='So11111111111111111111111111111111111111112';
-const BASELINE_KEY='w3bc-balancer-live-pilot-v1';
-const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
-const num=(n,d=4)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d});
-async function rpc(method,params){
-  const r=await fetch(RPC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})});
-  if(!r.ok) throw new Error(`RPC ${r.status}`); const j=await r.json(); if(j.error) throw new Error(j.error.message||'RPC error'); return j.result;
+const WALLET='7mVEbMXAzmK8Gwe8vkHDEn6YfxPEPJMF269EnFnQb8Su',RPC='https://api.mainnet-beta.solana.com',USDC='EPjFWdd5AufqSSqeM2qHGYwNpwUeAmGi1V6JX8qPqk2d',WSOL='So11111111111111111111111111111111111111112',BASELINE_KEY='w3bc-balancer-live-pilot-v2';
+const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(n),num=(n,d=4)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d});
+async function rpc(method,params){const r=await fetch(RPC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})});if(!r.ok)throw new Error(`RPC ${r.status}`);const j=await r.json();if(j.error)throw new Error(j.error.message||'RPC error');return j.result}
+async function balances(){const [sol,tokens]=await Promise.all([rpc('getBalance',[WALLET,{commitment:'confirmed'}]),rpc('getTokenAccountsByOwner',[WALLET,{mint:USDC},{commitment:'confirmed',encoding:'jsonParsed'}])]);return{solAmount:sol.value/1e9,usdcAmount:tokens.value.reduce((s,a)=>s+Number(a.account.data.parsed.info.tokenAmount.uiAmountString||0),0)}}
+async function solPrice(){
+  const endpoints=[
+    `https://lite-api.jup.ag/price/v3?ids=${WSOL}`,
+    `https://api.jup.ag/price/v3?ids=${WSOL}`
+  ];
+  for(const u of endpoints){try{const r=await fetch(u,{headers:{Accept:'application/json'}});if(!r.ok)continue;const j=await r.json();const p=Number(j[WSOL]?.usdPrice||j.data?.[WSOL]?.price);if(p>0)return{price:p,source:'Jupiter Price'}}catch(e){}}
+  const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd');if(!r.ok)throw new Error(`Price ${r.status}`);const j=await r.json();const p=Number(j.solana?.usd);if(!(p>0))throw new Error('No SOL price');return{price:p,source:'CoinGecko fallback'}
 }
-async function loadBalances(){
-  const [sol,usdc]=await Promise.all([
-    rpc('getBalance',[WALLET,{commitment:'confirmed'}]),
-    rpc('getTokenAccountsByOwner',[WALLET,{mint:USDC},{commitment:'confirmed',encoding:'jsonParsed'}])
-  ]);
-  const solAmount=sol.value/1e9;
-  const usdcAmount=usdc.value.reduce((sum,a)=>sum+Number(a.account.data.parsed.info.tokenAmount.uiAmountString||0),0);
-  return {solAmount,usdcAmount};
-}
-async function getSolQuote(){
-  const url=`https://lite-api.jup.ag/swap/v1/quote?inputMint=${WSOL}&outputMint=${USDC}&amount=1000000000&slippageBps=50&restrictIntermediateTokens=true`;
-  const r=await fetch(url,{headers:{'Accept':'application/json'}}); if(!r.ok) throw new Error(`Quote ${r.status}`); const q=await r.json();
-  if(!q.outAmount) throw new Error(q.error||'No Jupiter route');
-  return {price:Number(q.outAmount)/1e6,priceImpactPct:Number(q.priceImpactPct||0),route:q.routePlan||[]};
-}
-function getBaseline(current){
-  try{const saved=JSON.parse(localStorage.getItem(BASELINE_KEY)||'null');if(saved&&saved.wallet===WALLET)return saved;}catch(e){}
-  const b={wallet:WALLET,startedAt:Date.now(),portfolioValue:current.portfolioValue,solAmount:current.solAmount,usdcAmount:current.usdcAmount,solPrice:current.solPrice};
-  localStorage.setItem(BASELINE_KEY,JSON.stringify(b));return b;
-}
-async function refresh(){
-  const portfolio=document.getElementById('portfolio'); portfolio.classList.add('loading');
-  document.getElementById('footer').textContent='Refreshing live chain data…';
-  try{
-    const [{solAmount,usdcAmount},quote]=await Promise.all([loadBalances(),getSolQuote()]);
-    const solPrice=quote.price, solValue=solAmount*solPrice, portfolioValue=solValue+usdcAmount;
-    const current={solAmount,usdcAmount,solPrice,portfolioValue}; const baseline=getBaseline(current);
-    const pnl=portfolioValue-baseline.portfolioValue; const pnlPct=baseline.portfolioValue?100*pnl/baseline.portfolioValue:0;
-    const assetPct=portfolioValue?100*solValue/portfolioValue:0;
-    portfolio.textContent=money(portfolioValue); portfolio.classList.remove('loading');
-    document.getElementById('solBalance').textContent=`${num(solAmount,6)} SOL`;
-    document.getElementById('usdcBalance').textContent=money(usdcAmount);
-    document.getElementById('solPrice').textContent=money(solPrice);
-    document.getElementById('priceLine').textContent=`1 SOL ≈ ${money(solPrice)} · price impact ${num(quote.priceImpactPct,4)}%`;
-    document.getElementById('allocationFill').style.width=`${Math.max(0,Math.min(100,assetPct))}%`;
-    document.getElementById('assetAllocation').textContent=`${num(assetPct,1)}% SOL`;
-    document.getElementById('cashAllocation').textContent=`${num(100-assetPct,1)}% USDC`;
-    const pnlEl=document.getElementById('pnl'); pnlEl.textContent=`${pnl>=0?'+':''}${money(pnl)} · ${pnlPct>=0?'+':''}${num(pnlPct,2)}% since pilot baseline`; pnlEl.className=pnl>0?'positive':pnl<0?'negative':'muted';
-    document.getElementById('strategyPnl').innerHTML=`${pnl>=0?'+':''}${money(pnl)}<div class="alpha">vs hold: begins when first approved rebalance executes</div>`;
-    document.getElementById('updated').textContent=`Updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit',second:'2-digit'})}`;
-    document.getElementById('footer').textContent='LIVE · Solana RPC balances · Jupiter executable SOL→USDC quote · auto refresh 20s';
-  }catch(err){
-    portfolio.textContent='Feed error'; portfolio.classList.remove('loading');
-    document.getElementById('footer').textContent=`Live feed error: ${err.message}. Tap REFRESH.`;
-    console.error(err);
-  }
-}
-document.getElementById('refresh').addEventListener('click',refresh);
-document.getElementById('details').addEventListener('click',()=>alert('Pilot target: 50/50 SOL-USDC. Next gate adds trade proposals with Phantom approval. No automatic execution is enabled.'));
-refresh(); setInterval(refresh,20000);
+function baseline(c){try{const b=JSON.parse(localStorage.getItem(BASELINE_KEY)||'null');if(b&&b.wallet===WALLET)return b}catch(e){}const b={wallet:WALLET,startedAt:Date.now(),portfolioValue:c.portfolioValue,solAmount:c.solAmount,usdcAmount:c.usdcAmount,solPrice:c.solPrice};localStorage.setItem(BASELINE_KEY,JSON.stringify(b));return b}
+async function refresh(){const el=document.getElementById('portfolio');el.classList.add('loading');document.getElementById('footer').textContent='Refreshing live chain data…';try{const [{solAmount,usdcAmount},px]=await Promise.all([balances(),solPrice()]);const solValue=solAmount*px.price,portfolioValue=solValue+usdcAmount,c={solAmount,usdcAmount,solPrice:px.price,portfolioValue},b=baseline(c),pnl=portfolioValue-b.portfolioValue,pct=b.portfolioValue?100*pnl/b.portfolioValue:0,assetPct=portfolioValue?100*solValue/portfolioValue:0;el.textContent=money(portfolioValue);el.classList.remove('loading');solBalance.textContent=`${num(solAmount,6)} SOL`;usdcBalance.textContent=money(usdcAmount);solPrice.textContent=money(px.price);priceLine.textContent=`1 SOL ≈ ${money(px.price)} · ${px.source}`;allocationFill.style.width=`${Math.max(0,Math.min(100,assetPct))}%`;assetAllocation.textContent=`${num(assetPct,1)}% SOL`;cashAllocation.textContent=`${num(100-assetPct,1)}% USDC`;const pe=document.getElementById('pnl');pe.textContent=`${pnl>=0?'+':''}${money(pnl)} · ${pct>=0?'+':''}${num(pct,2)}% since baseline`;pe.className=pnl>0?'positive':pnl<0?'negative':'muted';strategyPnl.innerHTML=`${pnl>=0?'+':''}${money(pnl)}<div class="alpha">vs hold starts after first approved rebalance</div>`;updated.textContent=`Updated ${new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit',second:'2-digit'})}`;footer.textContent=`LIVE · wallet balances + ${px.source} · auto refresh 20s`}catch(err){el.textContent='Feed error';el.classList.remove('loading');footer.textContent=`Live feed error: ${err.message}. Tap REFRESH.`;console.error(err)}}
+refresh.onclick=refresh;details.onclick=()=>alert('Target 50/50 SOL-USDC. Current mode is read-only. Approval-mode swaps are the next gate.');refresh();setInterval(refresh,20000);
 </script></body></html>
